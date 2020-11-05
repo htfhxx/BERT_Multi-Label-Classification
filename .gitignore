@@ -1,0 +1,7 @@
+__pycache__
+*.json
+*.pkl
+*.tar
+data/
+checkpoints/
+log/
