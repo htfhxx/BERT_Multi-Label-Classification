@@ -1,26 +1,37 @@
 
+### Introduction
+BERT fine-tune 多标签分类任务
 
+###  requirements
+python3
+pytorch
+tqdm
+sklearn
+numpy
 
-    nlu_source_choices = ["comment", "comments", "content", "comment_content", "comments_content",
-                          'content_comment', 'content_comments']
+###  Train & Test
 
-
-更改log csv名字
-更改myout文件夹名字
-更改checkpoint文件夹名字
-更换数据
-
-mv log train_history/comment_content/
-mv myout.file train_history/comment_content/
-mv checkpoints train_history/comment_content/
-mv data/MUSIC/index*  train_history/comment_content/
-mkdir log
-mkdir checkpoints 
-
-
-
-mv ft_local/indexed_*    data/MUSIC/
+* 预处理数据 - 在utils/config/preprocess_data_bert.config中设置好文件路径等
+```
+python3 preprocess_data.py
+```
+* 训练 - 在utils/config/train_bert.config中设置好文件路径等
+```
+python3 train_bert.py --mode train
+```
+```
 nohup python3 -u train_bert.py  > myout.file 2>&1 &
 tail -f myout.file
-
 cat myout.file | grep 'loss='
+```
+* 测试
+```
+python3 train_bert.py --mode test
+```
+
+###  Use in your dataset
+
+因为数据目前无法公开，因此需要你重写： preprocess_data.py
+
+
+

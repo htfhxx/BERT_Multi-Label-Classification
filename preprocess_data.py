@@ -15,7 +15,6 @@ def process_set(file, tokenizer, nlu_source):
     with open(file, "r", encoding="utf-8") as f:
         for line in f:
             sample = json.loads(line)
-            #text_content = sample['total_comments'][0].strip()
             if nlu_source == 'comment':
                 text_content = sample['comment'][0]
             elif nlu_source == 'content':
@@ -25,24 +24,24 @@ def process_set(file, tokenizer, nlu_source):
             elif nlu_source == 'content_comment':
                 text_content =  sample['source'] + '；'  + sample['comment']
 
-
             tag_list = sample['tag_list']
-            # print('tag_list:', tag_list)
 
             content["class"].append([int(all_tag_list[tag]) for tag in tag_list])
             text_idx = tokenizer.encode(text_content)
             content["text"].append(text_idx)
-        # print('content["class"]:', content["class"])
     return content
 
 
 def main():
+
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="./config/preprocess_data_bert.config")
     args = parser.parse_args()
     with open(args.config, "r") as config_file:
         config = json.loads(config_file.read())
-    tokenizer = BertTokenizer.from_pretrained("./bert-base-chinese/vocab.txt")
+
+    tokenizer = BertTokenizer.from_pretrained(config["vocab_path"])
 
     nlu_source_choices = ["comment", "content", "comment_content", 'content_comment']
 

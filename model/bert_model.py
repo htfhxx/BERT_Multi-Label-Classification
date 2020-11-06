@@ -16,5 +16,5 @@ class BertClassifier(nn.Module):
     def forward(self, x):
         _, y = self.bert_layer(x)
         logits = self.classifier_layer(y)
-        # _, category = torch.max(output, dim=-1)
-        return logits#  , category
+
+        return logits

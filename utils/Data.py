@@ -13,8 +13,6 @@ class MovieCommentDataset(Dataset):
         tag_length = list()
 
         for idx, content in enumerate(data["text"]):
-            # print('data["class"]: ', data["class"])
-
             content_len = min(len(content), max_len)
             tag_len = min(len(data["class"][idx]), 12)
             self.text[idx][:content_len] = torch.tensor(data["text"][idx][:content_len], dtype=torch.int64)
@@ -22,14 +20,8 @@ class MovieCommentDataset(Dataset):
             self.category[idx][:tag_len] = torch.tensor(data["class"][idx][:tag_len], dtype=torch.int64)
             tag_length.append(tag_len)
 
-            # print('self.category[idx]: ',self.category[idx])
-            # print('tag_len: ',tag_len)
-            #
-            # exit()
         self.text_length = torch.tensor(text_length)
         self.tag_length = torch.tensor(tag_length)
-        # print(self.category[:3])
-        # print(self.text_length[:5])
 
 
     def __len__(self):
